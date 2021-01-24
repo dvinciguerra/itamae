@@ -3,6 +3,8 @@ require 'yaml'
 
 module Itamae
   class Runner
+    TEMP_DIR = ENV['TMPDIR'] || '/tmp'
+
     class << self
       def run(recipe_files, backend_type, options)
         Itamae.logger.info "Starting Itamae... #{options[:dry_run] ? '(dry-run)' : ''}"
@@ -30,7 +32,7 @@ module Itamae
       prepare_handler
 
       @node = create_node
-      @tmpdir = "/tmp/itamae_tmp"
+      @tmpdir = "#{TEMP_DIR}/itamae_tmp"
       @children = RecipeChildren.new
       @diff = false
 
